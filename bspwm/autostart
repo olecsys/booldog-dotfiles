@@ -1,7 +1,7 @@
 ##run_once is a script in /usr/bin that prevents running script if it is running already
 ##
 ## To enable pulseaufio, uncomment this and run sudo pacman -S pavucontrol pulseaudio-ctl manjaro-pulse
-pulseaudio --start &
+#pulseaudio --start &
 #sleep 2s && volume 37 &
 ## Load appearance settings
 xsetroot -cursor_name left_ptr &
@@ -19,7 +19,7 @@ xrdb merge .Xresources &
 #xfdesktop -D &
 ## compositing. Required for shadows, transparency and stuff. 
 ## Reduces flicker. Disabling saves resources.
-compton -b &
+#compton -b &
 ## hides mouse when you are not using it. When mouse is hidden, rootmenu considers mouse on desktop, so actions can be triggered.
 #run_once unclutter &
 ## enable local fonts in .fonts directory
@@ -43,7 +43,8 @@ xbacklight -set 15 &
 
 #lemonpanel &
 
-limepanel &
+#limepanel &
+
 sleep 2s && bspc config top_padding 10 &
 #mylime &
 ## Light system tray to use with lemonbar. Disable if you dont need it. 
@@ -52,9 +53,9 @@ sleep 2s && bspc config top_padding 10 &
 ## Welcome message
 #notify-send "Welcome to Manjaro-bspwm! " "Press super + F1 to show keybindings" &
 ## Run screenlock when suspending
-i3lock-wait-for-suspend &
+#i3lock-wait-for-suspend &
 ## multimonitor support. Save monitor configurations with "autorandr.sh --save <profile>"
-srandrd atorandr.sh --change
+#srandrd atorandr.sh --change
 ## Notify about package updates
 update-checker 7200 &
 xcape -e 'Super_L=Super_L|Shift_L|space' &

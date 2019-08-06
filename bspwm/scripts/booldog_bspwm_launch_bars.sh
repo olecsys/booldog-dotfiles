@@ -69,11 +69,11 @@ function main() {
   ${__wired_interface}
 " >> /tmp/booldog.log
 
-        # MONITOR=${__connected_monitors[i]} \
-        #   TOP_RIGHT_MODULES=${__top_right_modules} \
-        #   WIRELESS_INTERFACE=${__wireless_interface} \
-        #   WIRED_INTERFACE=${__wired_interface} \
-        #   polybar --reload bottom > /tmp/${__connected_monitors[i]}_bottom_polybar.log 2>&1 &
+        MONITOR=${__connected_monitors[i]} \
+          TOP_RIGHT_MODULES=${__top_right_modules} \
+          WIRELESS_INTERFACE=${__wireless_interface} \
+          WIRED_INTERFACE=${__wired_interface} \
+          polybar --reload bottom > /tmp/${__connected_monitors[i]}_bottom_polybar.log 2>&1 &
         MONITOR=${__connected_monitors[i]} \
           TOP_RIGHT_MODULES=${__top_right_modules} \
           WIRELESS_INTERFACE=${__wireless_interface} \

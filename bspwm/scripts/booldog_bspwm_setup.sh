@@ -42,6 +42,8 @@ function main() {
     # local __pattern=disconnected # test mode
     local __connected_monitors=($(xrandr --query|grep -E '.+\s'${__pattern}|sed 's/^\(.\+\)\s'${__pattern}'.*$/\1/g'))
 
+    local __resolutions=($(xrandr --query|grep -E '.+\s'${__pattern}|sed 's/^\(.\+\)\s'${__pattern}'\s\(primary\s\)*\([0-9]\+x[0-9]\+\).*$/\3/g'))
+
     __pattern=^LVDS[0-9]+$
     # __pattern=^DVI-I-[0-9]+$
     local i
@@ -51,7 +53,7 @@ function main() {
       if [[ ${__connected_monitors[i]} =~ ${__pattern} ]]; then
         __laptop=${__connected_monitors[i]}
       fi
-    done    
+    done        
 
     if [ ! -z "${__laptop}" ]; then
       xrandr --output ${__laptop} --primary --auto || break      
