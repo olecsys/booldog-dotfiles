@@ -22,7 +22,7 @@ function main() {
   do
     alias iv7echo='echo "IV7 RULEZZZZ"' || break
 
-    alias code='GTK_IM_MODULE=ibus code'
+    # alias code='GTK_IM_MODULE=ibus code'
 
     __funcresult=0
     break
