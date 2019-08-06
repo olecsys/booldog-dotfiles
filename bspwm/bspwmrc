@@ -9,23 +9,25 @@
 # * https://www.reddit.com/r/unixporn/comments/7fvbms/bspwm_pywal_i_like/
 
 # Set bspwm config directory environment variable 
+``
 export BSPWM_CONFIG="${XDG_CONFIG_HOME:-$HOME/.config}/bspwm"
 
 function check_executable_exists() {
   command -v "$1" > /dev/null 2>&1
 }
 
-gap=15
+mingap=15
+maxgap=20
 PANEL_HEIGHT=25
 export gap
 export PANEL_HEIGHT
 
 #This creates negative padding equal to window gap so that gaps are shown only between windows and not on desktop edges.
-bspc config window_gap $gap;
-bspc config top_padding $(($PANEL_HEIGHT-$gap))
-bspc config left_padding -$gap
-bspc config right_padding -$gap
-bspc config bottom_padding -$gap
+bspc config window_gap $maxgap;
+# bspc config top_padding $(($PANEL_HEIGHT-$gap))
+# bspc config left_padding -$gap
+# bspc config right_padding -$gap
+# bspc config bottom_padding -$gap
 
 #Various settings
 bspc config gapless_monocle     false #Default setup uses negative padding, and gapless monocle looks really weird like that
@@ -143,7 +145,6 @@ if check_executable_exists setxkbmap; then
 	# QWERTY and Greek see my `sxhkdrc`.  The script:
 	# `own_script_current_keyboard_layout`
 fi
-
 
 # "$BSPWM_CONFIG/autostart" &
 BOOLDOG_SETUP_PATH=$BSPWM_CONFIG/scripts/booldog_bspwm_setup.sh
