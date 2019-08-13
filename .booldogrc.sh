@@ -1,5 +1,9 @@
 #!/bin/bash
 
+function check_executable_exists() {
+  command -v "$1" > /dev/null 2>&1
+}
+
 function main() {
   local old_dir="`pwd`/`basename "$0"`"
   old_dir=`dirname "$old_dir"`
@@ -20,7 +24,10 @@ function main() {
 
   while true
   do
-    alias iv7echo='echo "IV7 RULEZZZZ"' || break
+    if check_executable_exists optirun; then
+      alias opera='optirun opera'
+      alias code='optirun code'
+    fi
 
     # alias code='GTK_IM_MODULE=ibus code'
 
