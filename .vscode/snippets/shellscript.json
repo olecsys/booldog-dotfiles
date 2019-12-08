@@ -2,7 +2,7 @@
   "booldog:skeleton": {
     "prefix": "booldog:skeleton",
     "body": [
-      "#!/bin/bash",
+      "#!/usr/bin/env bash",
       "function read_options() {",
       "  g_opt_ind=0",
       "  while getopts \"yYnN\" opt; do",
@@ -256,7 +256,7 @@
   "booldog:jupyter-config": {
     "prefix": "booldog:jupyter-config",
     "body": [
-      "#!/bin/bash",
+      "#!/usr/bin/env bash",
       "function read_options() {",
       "  g_opt_ind=0",
       "  while getopts \"yYnN\" opt; do",
@@ -332,7 +332,7 @@
   "booldog:create-python-devenv": {
     "prefix": "booldog:create-python-devenv",
     "body": [
-      "#!/bin/bash",
+      "#!/usr/bin/env bash",
       "function read_options() {",
       "  g_opt_ind=0",
       "  while getopts \"yYnN\" opt; do",

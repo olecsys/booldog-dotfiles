@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 function check_executable_exists() {
   command -v "$1" > /dev/null 2>&1
