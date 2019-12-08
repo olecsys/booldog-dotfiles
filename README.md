@@ -6,6 +6,7 @@ Configuration files for GNU/Linux
 pacman -S ttf-material-icons
 pacman -S ttf-font-awesome
 pacman -S ibus
+pacman -S gnome-keyring
 ```
 
 ### How to force work `Visual Studio Code` hot key `CTRL+SHIFT+E`

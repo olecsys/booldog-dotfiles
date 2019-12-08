@@ -72,6 +72,32 @@ function main() {
 
     [ $__funcresult -eq 2 ] && break
 
+    if [ ${#__connected_monitors[@]} -gt 1 ]; then
+      for ((i=0; i<${#__connected_monitors[@]}; i++))
+      do
+        if ! [ "${__connected_monitors[i]}" = "${__laptop}" ]; then
+          bspc monitor ${__connected_monitors[i]} -d dev chat
+        else
+          bspc monitor ${__connected_monitors[i]} -d web
+        fi        
+      done
+    else
+      bspc monitor ${__connected_monitors[0]} -d dev chat web
+    fi
+
+    if check_executable_exists setxkbmap; then
+      local __result=$(setxkbmap -layout us,ru -option "grp:alt_shift_toggle,grp_led:scroll") \
+        || echo -e "\n$(date +%Y-%m-%dT%H-%M-%S) - ${__result}" >> /tmp/booldog.log
+      # setxkbmap -layout 'us'
+      # setxkbmap -option compose:menu
+
+      # For the key chord that performs the layout switching between US
+      # QWERTY and Greek see my `sxhkdrc`.  The script:
+      # `own_script_current_keyboard_layout`
+    else
+      echo -e "\n$(date +%Y-%m-%dT%H-%M-%S) - Cannot find setxkmap" >> /tmp/booldog.log
+    fi
+
     __funcresult=0
     break
   done  

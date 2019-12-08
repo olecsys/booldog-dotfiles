@@ -29,6 +29,22 @@ function main() {
       alias code='optirun code'
     fi
 
+    if check_executable_exists "/home/olecsys/SQLiteStudio/sqlitestudio"; then
+      alias sqlitestudio="/home/olecsys/SQLiteStudio/sqlitestudio"
+    fi
+
+    if check_executable_exists "/home/olecsys/GOGS/build_qml/qvideoclient"; then
+      alias qvideoclient-debug='INTEGRA_S_VIDEO_LOG_WRITE_HOME_ALLOW=1 INTEGRA_S_VIDEO_LOG_PATH="/home/olecsys/GOGS/build_qml/log" MJSONDBGDISABLE="1" LD_PRELOAD=/home/olecsys/GOGS/build_qml/libhookmem.so /home/olecsys/GOGS/build_qml/qvideoclient'
+    fi
+
+    if check_executable_exists "/home/olecsys/GOGS/build_server/video-server-7.0"; then
+      alias videoserver-debug='INTEGRA_S_VIDEO_LOG_WRITE_HOME_ALLOW=1 INTEGRA_S_VIDEO_LOG_PATH="/home/olecsys/GOGS/build_server/log" MJSONDBGDISABLE="1" /home/olecsys/GOGS/build_server/video-server-7.0'
+    fi
+
+    if check_executable_exists "/home/olecsys/GOGS/build_qml/qvideoclient"; then
+      alias qvideoclient-top='top -p `pgrep "qvideoclient"`'
+    fi
+
     # alias code='GTK_IM_MODULE=ibus code'
 
     __funcresult=0

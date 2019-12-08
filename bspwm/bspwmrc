@@ -13,6 +13,7 @@
 export BSPWM_CONFIG="${XDG_CONFIG_HOME:-$HOME/.config}/bspwm"
 BOOLDOG_SETUP_PATH=$BSPWM_CONFIG/scripts/booldog_bspwm_setup.sh
 BOOLDOG_LAUNCH_BARS=$BSPWM_CONFIG/scripts/booldog_bspwm_launch_bars.sh
+BOOLDOG_LAUNCH_APPS=$BSPWM_CONFIG/scripts/booldog_launch_apps.sh
 BOOLDOG_COMPTON_CONF_PATH=${HOME}/.config/compton.conf
 
 function check_executable_exists() {
@@ -108,7 +109,11 @@ bspc rule -a '*:soffice' state=tiled
 bspc rule -a 9menu border=off manage=off
 bspc rule -a tint2 border=off manage=off
 
-bspc rule -a Skype pseudo_tiled=on #split_ratio=0.65 desktop='^1'
+bspc rule -a Code desktop='dev'
+bspc rule -a qvideoclient desktop='dev' state=floating
+bspc rule -a Opera desktop='web'
+bspc rule -a st-256color desktop='web' follow=on # split_ratio=0.30 split_dir=west
+bspc rule -a Skype pseudo_tiled=on desktop='chat' #split_ratio=0.65 desktop='^1'
 #bspc desktop I --layout monocle
 #bspc desktop II --layout monocle
 
@@ -152,17 +157,11 @@ check_executable_exists compton && compton --config "${BOOLDOG_COMPTON_CONF_PATH
 # Run the tool that sets the wallpaper.
 check_executable_exists feh && "${HOME}/.fehbg" &
 
-if check_executable_exists setxkbmap; then
-  setxkbmap -layout us,ru -option "grp:alt_shift_toggle,grp_led:scroll"
-	# setxkbmap -layout 'us'
-	# setxkbmap -option compose:menu
-
-	# For the key chord that performs the layout switching between US
-	# QWERTY and Greek see my `sxhkdrc`.  The script:
-	# `own_script_current_keyboard_layout`
-fi
-
 # "$BSPWM_CONFIG/autostart" &
 
 check_executable_exists "$BOOLDOG_LAUNCH_BARS" && "$BOOLDOG_LAUNCH_BARS"
+
+check_executable_exists "${BOOLDOG_LAUNCH_APPS}" && "${BOOLDOG_LAUNCH_APPS}"
+
+
 
