@@ -54,6 +54,16 @@ function main() {
         __laptop=${__connected_monitors[i]}
       fi
     done        
+    if [ -z "${__laptop}" ]; then
+      __pattern=^HDMI[0-9]+$
+      local __laptop=
+      for ((i=0; i<${#__connected_monitors[@]}; i++))
+      do
+        if [[ ${__connected_monitors[i]} =~ ${__pattern} ]]; then
+          __laptop=${__connected_monitors[i]}
+        fi
+      done        
+    fi
 
     if [ ! -z "${__laptop}" ]; then
       xrandr --output ${__laptop} --primary --auto || break      
