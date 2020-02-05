@@ -46,7 +46,7 @@ function main() {
       [ ! -z "${__wireless_interfaces}" ] \
         && __wireless_interface=${__wireless_interfaces[0]}
 
-      local __wired_interfaces=($(ls /sys/class/net|grep -E '^eth.+$|^enp.+$'))
+      local __wired_interfaces=($(ls /sys/class/net|grep -E '^eth.+$|^enp.+$|eno.+$'))
       [ ! -z "${__wired_interfaces}" ] \
         && __wired_interface=${__wired_interfaces[0]}
 
