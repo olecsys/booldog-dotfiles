@@ -79,13 +79,15 @@ function main() {
 
     chmod +x "${HOME}/.booldogrc.sh" || break
 
-    if [ -f "${HOME}/.zshrc" ]; then
-      sed -i '/^.*[.]booldogrc[.]sh.*$/d' "${HOME}/.zshrc"
+    [ -f "${HOME}/.zshrc" ] && sed -i '/^.*[.]booldogrc[.]sh.*$/d' "${HOME}/.zshrc"
+
+    if [ -f "${HOME}/.profile" ]; then
+      sed -i '/^.*[.]booldogrc[.]sh.*$/d' "${HOME}/.profile"
       (
-      tee -a "${HOME}/.zshrc" <<EOFBOOLDOG
-command -v "${HOME}/.booldogrc.sh" > /dev/null 2>&1 && . "${HOME}/.booldogrc.sh"
+      tee -a "${HOME}/.profile" <<EOFBOOLDOG
+command -v "\${HOME}/.booldogrc.sh" > /dev/null 2>&1 && . "\${HOME}/.booldogrc.sh"
 EOFBOOLDOG
-) || __funcfailed=1
+) > /dev/null || __funcfailed=1
     fi
 
     __funcresult=0
