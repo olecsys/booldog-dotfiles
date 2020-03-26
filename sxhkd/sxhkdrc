@@ -279,8 +279,11 @@ super + e
 #spacefm -n
 
 Print
-	scrot
+	sleep 0.2; \
+  scrot -s '%F_%H-%M-%S_$wx$h.png' -e 'mkdir -p ~/screenshots/ && mv $f ~/screenshots/ ' && notify-send 'Desktop screenshot captured'
 
+shift + Print
+  scrot '%F_%H-%M-%S_$wx$h.png' -e 'mkdir -p ~/screenshots/ && mv $f ~/screenshots/ ' && notify-send 'Window screenshot captured'
 	
 #
 # Media keys
@@ -307,7 +310,7 @@ XF86Sleep
 
 # make sxhkd reload its configuration files:
 super + shift + Escape
-	pkill -USR1 -x sxhkd
+	pkill -USR1 -x sxhkd && notify-send 'sxhkd reloaded its configuration files'
 
 # In case bspwmrc fails to execute/you wish have plugged in a new monitor
 super + shift + r
