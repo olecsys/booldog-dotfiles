@@ -16,7 +16,7 @@ BOOLDOG_LAUNCH_BARS=$BSPWM_CONFIG/scripts/booldog_bspwm_launch_bars.sh
 BOOLDOG_LAUNCH_APPS=$BSPWM_CONFIG/scripts/booldog_launch_apps.sh
 BOOLDOG_COMPTON_CONF_PATH=${HOME}/.config/compton.conf
 
-function check_executable_exists() {
+check_executable_exists() {
   command -v "$1" > /dev/null 2>&1
 }
 
@@ -115,6 +115,7 @@ bspc rule -a Opera desktop='web'
 bspc rule -a st-256color desktop='web' follow=on # split_ratio=0.30 split_dir=west
 bspc rule -a Skype pseudo_tiled=on desktop='chat' #split_ratio=0.65 desktop='^1'
 bspc rule -a Zoom desktop='web'
+bspc rule -a 'Zoom - Free Account' desktop='web'
 #bspc desktop I --layout monocle
 #bspc desktop II --layout monocle
 
@@ -144,7 +145,8 @@ bspc config external_rules_command /usr/bin/pseudo_automatic_mode
 # limepanel &
 # Alter compton settings if using intel graphics
 GRAPHIC_CARD=$(lspci | grep -i "vga" | sed 's/.*://' | sed 's/(.*//' | sed 's/^[ \t]*//')
-if [[ $(echo $GRAPHIC_CARD | grep -i 'intel\|lenovo') != "" ]]; then MCODE='initrd=\intel-ucode.img'
+if [[ $(echo $GRAPHIC_CARD | grep -i 'intel\|lenovo') != "" ]]; then
+  MCODE='initrd=\intel-ucode.img'
   sed -i 's/"xrender"/"glx"/' ~/.config/compton.conf
   grep -q 'vsync = "opengl-swc";' ~/.config/compton.conf || echo 'vsync = "opengl-swc";' >> ~/.config/compton.conf
 fi

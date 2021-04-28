@@ -1,0 +1,61 @@
+- defaults:
+    link:
+      relink: true
+    shell:
+      stdin: true
+      sidout: true
+      quiet: true
+
+- clean: ['~']
+
+- shell:
+    -
+      command: "__file=\"${HOME}/.booldogrc.sh\" ; [ -f \"${__file}\" ] && rm -f \"${__file}\" || true"
+      description: Remove old file .booldogrc.sh from ~/.profile, if exists
+    -
+      command: "__file=\"${HOME}/.zshrc\" ; [ -f \"${__file}\" ] && sed -i '/^.*[.]booldogrc[.]sh.*$/d' \"${__file}\" || true"
+      description: Cleanup old .booldogrc.sh from ~/.zshrc, if exists
+    -
+      command: "__file=\"${HOME}/.profile\" ; [ -f \"${__file}\" ] && sed -i '/^.*[.]booldogrc[.]sh.*$/d' \"${__file}\" || true"
+      description: Cleanup old .booldogrc.sh from ~/.profile, if exists
+    - 
+      command: "__file=\"${HOME}/.profile\" ; [ -f \"${__file}\" ] && sed -i '/^.*[.]booldogrc.*$/d' \"${__file}\" && echo 'command -v \"${HOME}/.booldogrc\" > /dev/null 2>&1 && . \"${HOME}/.booldogrc\"' >> \"${__file}\" || true"
+      description: Update ~/.profile, if exists
+
+- clean:
+    ~/.config/bspwm:
+      recursive: true
+    ~/.config/polybar:
+      recursive: true
+    ~/.config/sxhkd:
+      recursive: true
+
+- link:
+    ~/.booldogrc: booldogrc
+    ~/.config/sxhkd/sxhkdrc:
+      if: '[ -d "${HOME}/.config/sxhkd" ]'
+      force: true
+      path: sxhkd/sxhkdrc
+    ~/.config/polybar/config:
+      if: '[ -d "${HOME}/.config/polybar" ]'
+      force: true
+      path: polybar/config
+    ~/.config/bspwm/autostart:
+      if: '[ -d "${HOME}/.config/bspwm" ]'
+      force: true
+      path: bspwm/autostart
+    ~/.config/bspwm/bspwmrc:
+      if: '[ -d "${HOME}/.config/bspwm" ]'
+      force: true
+      path: bspwm/bspwmrc
+    ~/.config/bspwm/scripts:
+      if: '[ -d "${HOME}/.config/bspwm" ]'
+      create: true
+      force: true
+      path: bspwm/scripts
+
+# - shell:
+#   - 
+#     command: \[ -f /tmp/TEST/profile \] && sed -i '/^.*[.]booldogrc[.]sh.*$/d' /tmp/TEST/profile
+#     stdin: true
+#     stdout: true

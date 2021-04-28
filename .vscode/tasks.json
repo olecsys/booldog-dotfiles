@@ -7,10 +7,12 @@
          "label": "Apply dotfiles",
          "type": "shell",
          "options": {
+             "cwd": "${workspaceRoot}",
              "env": {
              }
          },
-         "command": "\"${workspaceRoot}/apply.sh\"",
+        //  "command": "\"${workspaceRoot}/apply.sh\"",
+        "command": "./install",
          "args": [],
          "group": {
              "kind": "build",

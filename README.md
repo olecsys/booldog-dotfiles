@@ -1,3 +1,4 @@
+[Arch Wiki](https://wiki.archlinux.org/index.php/bspwm)
 # booldog-dotfiles
 Configuration files for GNU/Linux
 
@@ -8,6 +9,11 @@ pacman -S ttf-font-awesome
 pacman -S ibus
 pacman -S gnome-keyring
 pacman -S scrot
+```
+
+## How to find out a window name string
+```shell
+xprop | grep WM_CLASS
 ```
 
 ### How to force work `Visual Studio Code` hot key `CTRL+SHIFT+E`

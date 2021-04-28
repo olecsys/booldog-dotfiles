@@ -1,28 +1,43 @@
 #!/usr/bin/env bash
 
+# TODO: add a function log to simplify logging
+
 check_executable_exists() {
   command -v "$1" > /dev/null 2>&1
 }
 
 run_ssh_agent() {
   local log_filename=$1
+
   if check_executable_exists ssh-agent; then
     if [ -z "$SSH_AUTH_SOCK" ]
     then
       # Check for a currently running instance of the agent
       local RUNNING_AGENT=
-      RUNNING_AGENT="`ps -ax | grep 'ssh-agent -s' | grep -v grep | wc -l | tr -d '[:space:]'`"
-      [ "$RUNNING_AGENT" = "0" ] && ssh-agent -s &> "${HOME}/.ssh/ssh-agent"
-      eval `cat ${HOME}/.ssh/ssh-agent`
+      # RUNNING_AGENT="$(ps -ax | grep 'ssh-agent -s' | grep -v grep | wc -l | tr -d '[:space:]')"
+      if ! check_executable_exists pgrep; then
+        echo -e "\n$(date +%Y-%m-%dT%H-%M-%S) - pgrep does not exist" >> "${log_filename}"
+        return
+      fi
+      RUNNING_AGENT="$(pgrep ssh-agent)"
+      if [ -z "$RUNNING_AGENT" ]; then
+        ssh-agent -s > "${HOME}/.ssh/ssh-agent" 2>"${HOME}/.ssh/ssh-agent-error"
+
+        # TODO: sed ${HOME}/.ssh/ssh-agent and get PID for a logging
+
+        echo -e "\n$(date +%Y-%m-%dT%H-%M-%S) - ssh-agent is starting" >> "${log_filename}"
+      else
+        echo -e "\n$(date +%Y-%m-%dT%H-%M-%S) - ssh-agent is running(${RUNNING_AGENT})" >> "${log_filename}"
+      fi
+      eval "$(cat "${HOME}/.ssh/ssh-agent")"
     fi
+  else
+    echo -e "\n$(date +%Y-%m-%dT%H-%M-%S) - cannot find ssh-agent" >> "${log_filename}"
   fi
 }
 
-main() {  
-  local old_dir="`pwd`/`basename "$0"`"
-  old_dir=`dirname "$old_dir"`
-
-  local log_filename=/tmp/booldogrc.sh.log
+main() {
+  local log_filename=/tmp/booldogrc.log
   
   while true
   do
@@ -60,8 +75,6 @@ main() {
 #     # alias code='GTK_IM_MODULE=ibus code'    
 
     break
-  done  
-  
-  cd "$old_dir"
+  done
 }
-main $@
+main "$@"
