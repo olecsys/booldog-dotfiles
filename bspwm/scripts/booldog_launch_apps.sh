@@ -6,4 +6,6 @@ gnome-keyring-daemon --start --components=pkcs11 &
 
 zoom &
 code &
-opera &
+# WM_CLASS google-chrome
+google-chrome-stable &
+# opera &
